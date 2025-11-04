@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: 
+  name: ingres-sample
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: v1.sample-app.com
+      http: 
+        paths: 
+        - path: / 
+          pathType: Prefix
+          backend: 
+            service: 
+              name: svc-app-v1
+              port:
+                number: 80
+    - host: v2.sample-app.com
+      http: 
+        paths: 
+        - path: / 
+          pathType: Prefix
+          backend: 
+            service: 
+              name: svc-app-v2
+              port:
+                number: 80
+    - host: sample-app.com
+      http: 
+        paths: 
+        - path: /v1 
+          pathType: Prefix
+          backend: 
+            service: 
+              name: svc-app-v1
+              port:
+                number: 80
+        - path: /v2 
+          pathType: Prefix
+          backend: 
+            service: 
+              name: svc-app-v2
+              port:
+                number: 80
