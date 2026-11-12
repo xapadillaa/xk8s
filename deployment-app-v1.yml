@@ -19,4 +19,10 @@ spec:
         image: xapadillaa/nginx-sample:1.0
         ports:
         - containerPort: 80
-
+        resources:
+          requests:
+            memory: "256Mi" # Guaranteed baseline memory
+            cpu: "250m" # Guaranteed 0.25 vCPU cores
+          limits:
+            memory: "512Mi" # Max memory before OOM Kill
+            cpu: "500m" # Max CPU ceiling (throttling applies)
